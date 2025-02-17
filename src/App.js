@@ -6,6 +6,9 @@ import Footer from "./components/Footer"
 import Button from "./components/Button"
 import List from "./components/List"
 import Add from "./components/Add"
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ResponsiveAppBar from './components/ResponsiveAppBar';
+import CredentialsSignInPage from "./components/Login";
 
 function App() {
   const [items, setItems] = useState([
@@ -16,7 +19,7 @@ function App() {
 
   const [count, setCount] = useState(0);
 
-  const nombre = "andre";
+  const nombre = "Peter";
   const elemento = <h2> hola, {nombre}</h2>;
 
   const sum = () => {
@@ -37,14 +40,23 @@ function App() {
 
   return (
     <div>
-	<Header/>
-	{count}
-	<Button/>
-	<Button name = "suma" click={sum}/>
-	<Button name = "mensaje" click={() => alert("hola")}/>
-	<Add add={add}/>
-	<List items={items} ondelete={del}/>
-	<Footer/>
+      <BrowserRouter>
+      <ResponsiveAppBar/>
+        <Header />
+        <Routes>
+          <Route path="/login" element={<CredentialsSignInPage />}/>
+          <Route path="/add" element={<Add add={add}/>}/>
+          <Route path="/items" element={<List items={items} ondelete={del}/>}/>
+          
+        </Routes>
+        <Footer/>
+      </BrowserRouter>
+      {/* {count}
+      <Button name = "suma" click={sum}/>
+      <Button name = "mensaje" click={() => alert("hola")}/>
+      <Add add={add}/> */}
+      
+
     </div>
   );
 }
