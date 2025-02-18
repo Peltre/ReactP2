@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
 
-const pages = ['Inventario', 'Agregar Producto', 'Login'];
+const pages = ['Inventario', 'Agregar Producto', 'Login', 'Inicio'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -42,6 +42,10 @@ function ResponsiveAppBar() {
 
     else if (e.target.textContent === pages[2]) {
         navigate("/login")
+    }
+
+    else if (e.target.textContent === pages[3]) {
+      navigate("/")
     }
   };
 

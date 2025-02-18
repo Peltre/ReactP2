@@ -9,6 +9,9 @@ import Add from "./components/Add"
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ResponsiveAppBar from './components/ResponsiveAppBar';
 import CredentialsSignInPage from "./components/Login";
+import { ImageList } from '@mui/material';
+import StandardImageList from './components/ImageL';
+
 
 function App() {
   const [items, setItems] = useState([
@@ -42,14 +45,26 @@ function App() {
     <div>
       <BrowserRouter>
       <ResponsiveAppBar/>
+
+      <div style={{
+        display: "flex",
+        flexDirection: "column", // 📌 Alinea en columna
+        justifyContent: "center", // 📌 Centra verticalmente
+        alignItems: "center", // 📌 Centra horizontalmente
+        height: "100vh", // 📌 Ocupa toda la pantalla
+        width: "100%",
+      }}>
+      <ImageList />
         <Header />
         <Routes>
+          <Route path="/" element={<StandardImageList/>}/>
           <Route path="/login" element={<CredentialsSignInPage />}/>
           <Route path="/add" element={<Add add={add}/>}/>
           <Route path="/items" element={<List items={items} ondelete={del}/>}/>
           
         </Routes>
         <Footer/>
+        </div>
       </BrowserRouter>
       {/* {count}
       <Button name = "suma" click={sum}/>
