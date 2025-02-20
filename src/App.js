@@ -11,6 +11,7 @@ import ResponsiveAppBar from './components/ResponsiveAppBar';
 import CredentialsSignInPage from "./components/Login";
 import { ImageList } from '@mui/material';
 import StandardImageList from './components/ImageL';
+import Logon from './components/Logon';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 	  {id: 3, name: "item3", price:30}
   ]);
 
+  const [isLogin, setIsLogin] = useState(false);
   const [count, setCount] = useState(0);
 
   const nombre = "Peter";
@@ -40,11 +42,23 @@ function App() {
     setItems(items.filter((item) => item.id !== id));
   };
 
+  const login = (user) => {
+    if (user.username === "pedro" && 
+      user.password === "123"){
+        setIsLogin(true);
+      }
+      return isLogin
+  };
+
+  const logout = () => {
+    setIsLogin(false);
+  };
+
 
   return (
     <div>
       <BrowserRouter>
-      <ResponsiveAppBar/>
+     {isLogin && <ResponsiveAppBar logout={logout}/>}
 
       <div style={{
         display: "flex",
@@ -57,8 +71,8 @@ function App() {
       <ImageList />
         <Header />
         <Routes>
-          <Route path="/" element={<StandardImageList/>}/>
-          <Route path="/login" element={<CredentialsSignInPage />}/>
+          <Route path="/home" element={<StandardImageList/>}/>
+          <Route path="/" element={<Logon login={login}/>}/>
           <Route path="/add" element={<Add add={add}/>}/>
           <Route path="/items" element={<List items={items} ondelete={del}/>}/>
           

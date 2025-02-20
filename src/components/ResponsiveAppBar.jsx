@@ -17,7 +17,8 @@ import { useNavigate } from 'react-router-dom';
 const pages = ['Inventario', 'Agregar Producto', 'Login', 'Inicio'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ logout }) {
+  const settings = ["Logout"]
     const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -41,16 +42,20 @@ function ResponsiveAppBar() {
     }
 
     else if (e.target.textContent === pages[2]) {
-        navigate("/login")
+        navigate("/")
     }
 
     else if (e.target.textContent === pages[3]) {
-      navigate("/")
+      navigate("/home")
     }
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (e) => {
     setAnchorElUser(null);
+    if (e.target.textContent === settings[0]) {
+      logout();
+      navigate("/");
+    }
   };
 
   return (
