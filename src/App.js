@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import Button from "./components/Button"
@@ -24,9 +24,17 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [count, setCount] = useState(0);
 
-  const nombre = "Peter";
-  const elemento = <h2> hola, {nombre}</h2>;
+  useEffect(() => {
+    if (isLogin) {
+      getItems();
+    }
+  },[isLogin])
 
+  const getItems = async () => {
+    const result = await fetch("http://localhost:5000/items/");
+    const data = await result.json();
+    setItems(data);
+  }
   const sum = () => {
     setCount(count + 1);
     console.log(count);
@@ -42,13 +50,25 @@ function App() {
     setItems(items.filter((item) => item.id !== id));
   };
 
-  const login = (user) => {
-    if (user.username === "pedro" && 
-      user.password === "123"){
-        setIsLogin(true);
-      }
-      return isLogin
-  };
+  const login = async (user) => {
+    const result = await fetch("http://localhost:5000/login/",
+      {
+        method: "POST",
+        headers: { "content-type": "application-json"},
+        body: JSON.stringify(user),
+      });
+      const data = result.json();
+      setIsLogin(data.isLogin);
+      return data.isLogin;
+  }
+
+  // const login = (user) => {
+  //   if (user.username === "pedro" && 
+  //     user.password === "123"){
+  //       setIsLogin(true);
+  //     }
+  //     return isLogin
+  // };
 
   const logout = () => {
     setIsLogin(false);
