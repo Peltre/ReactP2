@@ -26,30 +26,52 @@ const Logon = ({ login }) => {
 
 
     return (
-        <form onSubmit={onsubmit}>
-            <Box 
-            margin={"auto"}
-            flexDirection={"column"}
-            display={"flex"}
-            width={400}
-            marginTop={"20px"}
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="100vh"
+        >
+          <form onSubmit={onSubmit}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              p={3}
+              boxShadow={3}
+              borderRadius={2}
+              bgcolor="background.paper"
             >
-            <TextField 
-            label={"Username"}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField 
-            label={"Password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button type={"submit"} variant="contained">
+              <Typography variant="h4" gutterBottom>
                 Login
-            </Button>
+              </Typography>
+              <TextField
+                label="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                margin="normal"
+                fullWidth
+              />
+              <TextField
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                margin="normal"
+                fullWidth
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={{ mt: 2 }}
+              >
+                Login
+              </Button>
             </Box>
-        </form>
-    );
-};
+          </form>
+        </Box>
+      );
+    }
 
 export default Logon;
